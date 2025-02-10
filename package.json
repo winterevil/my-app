@@ -11,17 +11,22 @@
   "dependencies": {
     "@heroicons/react": "^2.2.0",
     "axios": "^1.7.9",
+    "dotenv": "^16.4.7",
     "framer-motion": "^11.18.1",
     "my-app": "file:",
     "next": "15.1.5",
+    "next-connect": "^1.0.0",
+    "pg": "^8.13.1",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
+    "react-toastify": "^11.0.3",
     "react-type-animation": "^3.2.0"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
     "@types/next": "^9.0.0",
     "@types/node": "^20",
+    "@types/pg": "^8.11.10",
     "@types/react": "^19.0.7",
     "@types/react-dom": "^19",
     "eslint": "^9",
