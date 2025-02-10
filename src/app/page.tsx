@@ -13,7 +13,6 @@ export default function Home() {
       <div className="container mt-24 mx-auto px-12 py-4 flex-grow">
         <ToastContainer position="top-right" autoClose={1000} />
         <HeroSection />
-        <h1 className="text-white">User List</h1>
         <AchievementsSection />
         <AboutSection />
         <ProjectsSection />
