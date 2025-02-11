@@ -8,17 +8,26 @@ const TAB_DATA = [
     id: 'skills',
     title: 'Skills',
     content: (
-      <div className='grid md:grid-cols-6 grid-cols-3 pl-2'>
-        <Image className='mb-4' src="/images/about/nextjs.png" width={50} height={50} alt="skills"></Image>
-        <Image className='mb-4' src="/images/about/nodejs.png" width={50} height={50} alt="skills"></Image>
-        <Image className='mb-4' src="/images/about/react.png" width={50} height={50} alt="skills"></Image>
-        <Image className='mb-4' src="/images/about/mysql.png" width={50} height={50} alt="skills"></Image>
-        <Image className='mb-4' src="/images/about/java.png" width={50} height={50} alt="skills"></Image>
-        <Image className='mb-4' src="/images/about/csharp.png" width={50} height={50} alt="skills"></Image>
-        <Image className='mb-4' src="/images/about/html.png" width={50} height={50} alt="skills"></Image>
-        <Image className='mb-4' src="/images/about/css.png" width={50} height={50} alt="skills"></Image>
-        <Image className='mb-4' src="/images/about/js.png" width={50} height={50} alt="skills"></Image>
-        <Image className='mb-4' src="/images/about/tailwindcss.png" width={50} height={50} alt="skills"></Image>
+      <div className='grid md:grid-cols-6 grid-cols-3 pl-2 gap-4'>
+        {[
+          { src: "/images/about/nextjs.png", name: "Next.js" },
+          { src: "/images/about/nodejs.png", name: "Node.js" },
+          { src: "/images/about/react.png", name: "React.js" },
+          { src: "/images/about/mysql.png", name: "MySQL" },
+          { src: "/images/about/java.png", name: "Java" },
+          { src: "/images/about/csharp.png", name: "C#" },
+          { src: "/images/about/html.png", name: "HTML" },
+          { src: "/images/about/css.png", name: "CSS" },
+          { src: "/images/about/js.png", name: "JavaScript" },
+          { src: "/images/about/tailwindcss.png", name: "Tailwind CSS" },
+        ].map((skill, index) => (
+          <div key={index} className="relative group flex justify-center items-center">
+            <Image className='mb-4' src={skill.src} width={50} height={50} alt={skill.name} />
+            <span className="absolute top-6 left-3/4 transform -translate-x-1/2 bg-gray-800 text-white text-xs rounded px-2 py-1 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+              {skill.name}
+            </span>
+          </div>
+        ))}
       </div>
     ),
   },
