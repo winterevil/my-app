@@ -4,17 +4,26 @@ import { query } from '@/lib/db';
 
 export async function POST(req: Request) {
     try {
-        const { email, subject, message } = await req.json();
+        const { email, subject, message, honeypot } = await req.json();
 
+        // Nếu honeypot có giá trị => Đây là bot, từ chối request
+        if (honeypot) {
+            console.log("Spam detected!", honeypot);
+            return NextResponse.json({ error: 'Spam detected' }, { status: 400 });
+        }
+
+        // Kiểm tra dữ liệu hợp lệ
         if (!email || !subject || !message) {
             return NextResponse.json({ error: 'Missing required fields' }, { status: 400 });
         }
 
+        // Lưu vào database
         const result = await query(
             'INSERT INTO messages (email, subject, messages) VALUES ($1, $2, $3) RETURNING *',
             [email, subject, message]
         );
 
+        // Gửi email xác nhận
         const transporter = nodemailer.createTransport({
             service: 'gmail',
             auth: {
