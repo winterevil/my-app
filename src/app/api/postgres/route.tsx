@@ -1,18 +1,28 @@
 import { NextResponse } from 'next/server';
 import { query } from '@/lib/db';
+// import nodemailer from 'nodemailer';
+
+const emailHistory = new Map(); 
 
 export async function POST(req: Request) {
     try {
-        const { email, subject, message, honeypot } = await req.json();
+        const { email, subject, message } = await req.json();
 
-        if (honeypot) {
-            return NextResponse.json({ error: 'Spam detected!' }, { status: 400 });
+        if (!email || !subject || !message) {
+            return NextResponse.json({ error: 'Missing required fields' }, { status: 400 });
         }
 
-        const containsURL = (text: string) => /(https?:\/\/[^\s]+)/.test(text);
-        if (containsURL(message)) {
+        if (message.includes("http://") || message.includes("https://")) {
             return NextResponse.json({ error: "Spam detected!" }, { status: 400 });
         }
+
+        const now = Date.now();
+
+        if (emailHistory.has(email) && now - emailHistory.get(email) < 120000) {
+            return NextResponse.json({ error: "Too many requests, try again later" }, { status: 429 });
+        }
+
+        emailHistory.set(email, now);
 
         const result = await query(
             'INSERT INTO messages (email, subject, messages) VALUES ($1, $2, $3) RETURNING *',
@@ -47,6 +57,3 @@ export async function POST(req: Request) {
         return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
     }
 }
-
-
-
