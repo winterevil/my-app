@@ -18,6 +18,7 @@ async function isDomainValid(domain: string): Promise<boolean> {
         const mxRecords = await resolveMx(domain);
         return mxRecords.length > 0;  
     } catch (error) {
+        console.error('Error resolving MX records:', error);
         return false;  
     }
 }
