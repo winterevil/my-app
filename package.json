@@ -11,6 +11,7 @@
   "dependencies": {
     "@heroicons/react": "^2.2.0",
     "axios": "^1.7.9",
+    "disposable-email-domains": "^1.0.62",
     "dotenv": "^16.4.7",
     "framer-motion": "^11.18.1",
     "my-app": "file:",
@@ -23,7 +24,8 @@
     "react-google-recaptcha": "^3.1.0",
     "react-toastify": "^11.0.3",
     "react-type-animation": "^3.2.0",
-    "resend": "^4.1.2"
+    "resend": "^4.1.2",
+    "temporary-email-validator": "^1.0.2"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
