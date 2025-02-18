@@ -1,31 +1,39 @@
 import { NextResponse } from 'next/server';
 import { query } from '@/lib/db';
-import dns from 'dns';
-import disposableDomains from 'disposable-email-domains';
 import nodemailer from 'nodemailer';
+import dns from 'dns';
+import util from 'util';
 
 const emailHistory = new Map();
 
-const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
-async function isValidEmail(email: string): Promise<boolean> {
-    if (!emailRegex.test(email)) return false;
-    
-    const domain = email.split('@')[1];
-    
-    return new Promise((resolve) => {
-        dns.resolveMx(domain, (err, addresses) => {
-            resolve(!err && addresses && addresses.length > 0);
-        });
-    });
+function isValidEmailFormat(email: string): boolean {
+    const regex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    return regex.test(email);
 }
 
-function isDisposableEmail(email: string): boolean {
-    const domain = email.split('@')[1].toLowerCase();
-    return disposableDomains.includes(domain);
+async function isDomainValid(domain: string): Promise<boolean> {
+    const resolveMx = util.promisify(dns.resolveMx);
+
+    try {
+        const mxRecords = await resolveMx(domain);
+        return mxRecords.length > 0;  
+    } catch (error) {
+        return false;  
+    }
 }
 
-export async function POST(req: Request): Promise<NextResponse> {
+async function isRealEmail(email: string): Promise<boolean> {
+    if (!isValidEmailFormat(email)) {
+        return false;
+    }
+
+    const domain = email.split('@')[1]; 
+    const isValidDomain = await isDomainValid(domain);
+
+    return isValidDomain;
+}
+
+export async function POST(req: Request) {
     try {
         const { email, subject, message } = await req.json();
 
@@ -37,11 +45,7 @@ export async function POST(req: Request): Promise<NextResponse> {
             return NextResponse.json({ error: "Spam detected!" }, { status: 400 });
         }
 
-        if (isDisposableEmail(email)) {
-            return NextResponse.json({ error: "Temporary email addresses are not allowed" }, { status: 400 });
-        }
-
-        const emailValid = await isValidEmail(email);
+        const emailValid = await isRealEmail(email);
         if (!emailValid) {
             return NextResponse.json({ error: "Invalid email address" }, { status: 400 });
         }
