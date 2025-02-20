@@ -74,6 +74,11 @@ export async function POST(req: Request) {
             from: `"No Reply" <${process.env.EMAIL_USERNAME}>`,
             to: email,
             subject: `Re: ${subject}`,
+            headers: {
+                "Reply-To": "",
+                "Auto-Submitted": "auto-generated",
+                "X-Auto-Response-Suppress": "All"
+            },
             html: `
                 <p>Thank you for reaching out!</p>
                 <p>I have received your message and will get back to you soon.</p>
@@ -83,6 +88,7 @@ export async function POST(req: Request) {
                 <p>Best regards,<br/>Your Name</p>
             `
         });
+        
 
         return NextResponse.json({ message: 'Message sent successfully', data: result.rows[0] }, { status: 200 });
     } catch (error) {
