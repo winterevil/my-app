@@ -85,7 +85,7 @@ export async function POST(req: Request) {
                 <p><strong>Your message:</strong></p>
                 <blockquote>${message}</blockquote>
                 <br />
-                <p>Best regards,<br/>Your Name</p>
+                <p>Best regards,<br/>Long Le</p>
             `
         });
         
