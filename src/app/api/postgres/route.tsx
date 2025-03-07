@@ -16,7 +16,7 @@ async function isDomainValid(domain: string): Promise<boolean> {
     const resolveMx = util.promisify(dns.resolveMx);
     try {
         const mxRecords = await resolveMx(domain);
-        return mxRecords.length > 0;  
+        return mxRecords.length > 0;
     } catch {
         return false;
     }
@@ -57,8 +57,7 @@ export async function POST(req: Request) {
         if (ip !== "unknown") {
             const ipRequests = ipHistory.get(ip) || [];
             ipRequests.push(now);
-            ipHistory.set(ip, ipRequests.filter(t => now - t < 300000));
-
+            ipHistory.set(ip, ipRequests.filter((t: number) => now - t < 300000));
             if (ipHistory.get(ip).length > 5) {
                 return NextResponse.json({ error: "Too many requests from this IP" }, { status: 429 });
             }
@@ -73,8 +72,8 @@ export async function POST(req: Request) {
             const transporter = nodemailer.createTransport({
                 service: 'gmail',
                 auth: {
-                    user: process.env.EMAIL_USERNAME, 
-                    pass: process.env.EMAIL_PASSWORD  
+                    user: process.env.EMAIL_USERNAME,
+                    pass: process.env.EMAIL_PASSWORD
                 }
             });
 
