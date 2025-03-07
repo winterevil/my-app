@@ -37,7 +37,6 @@ async function isRealEmail(email: string): Promise<boolean> {
 export async function POST(req: Request) {
     try {
         const { email, subject, message } = await req.json();
-        const ip = req.headers.get("x-forwarded-for") || req.headers.get("x-real-ip") || "unknown";
         const userAgent = req.headers.get("user-agent") || "";
 
         if (!email || !subject || !message) {
