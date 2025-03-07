@@ -5,7 +5,6 @@ import dns from 'dns';
 import util from 'util';
 
 const emailHistory = new Map();
-const ipHistory = new Map();
 
 function isValidEmailFormat(email: string): boolean {
     const regex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
@@ -14,16 +13,25 @@ function isValidEmailFormat(email: string): boolean {
 
 async function isDomainValid(domain: string): Promise<boolean> {
     const resolveMx = util.promisify(dns.resolveMx);
+
     try {
         const mxRecords = await resolveMx(domain);
-        return mxRecords.length > 0;
-    } catch {
-        return false;
+        return mxRecords.length > 0;  
+    } catch (error) {
+        console.error('Error resolving MX records:', error);
+        return false;  
     }
 }
 
 async function isRealEmail(email: string): Promise<boolean> {
-    return isValidEmailFormat(email) && await isDomainValid(email.split('@')[1]);
+    if (!isValidEmailFormat(email)) {
+        return false;
+    }
+
+    const domain = email.split('@')[1]; 
+    const isValidDomain = await isDomainValid(domain);
+
+    return isValidDomain;
 }
 
 export async function POST(req: Request) {
@@ -54,48 +62,38 @@ export async function POST(req: Request) {
         }
         emailHistory.set(email, now);
 
-        if (ip !== "unknown") {
-            const ipRequests = ipHistory.get(ip) || [];
-            ipRequests.push(now);
-            ipHistory.set(ip, ipRequests.filter((t: number) => now - t < 300000));
-            if (ipHistory.get(ip).length > 5) {
-                return NextResponse.json({ error: "Too many requests from this IP" }, { status: 429 });
-            }
-        }
-
         const result = await query(
             'INSERT INTO messages (email, subject, messages) VALUES ($1, $2, $3) RETURNING *',
             [email, subject, message]
         );
 
-        setTimeout(async () => {
-            const transporter = nodemailer.createTransport({
-                service: 'gmail',
-                auth: {
-                    user: process.env.EMAIL_USERNAME,
-                    pass: process.env.EMAIL_PASSWORD
-                }
-            });
+        const transporter = nodemailer.createTransport({
+            service: 'gmail',
+            auth: {
+                user: process.env.EMAIL_USERNAME, 
+                pass: process.env.EMAIL_PASSWORD  
+            }
+        });
 
-            await transporter.sendMail({
-                from: `"No Reply" <${process.env.EMAIL_USERNAME}>`,
-                to: email,
-                subject: `Re: ${subject}`,
-                headers: {
-                    "Reply-To": "",
-                    "Auto-Submitted": "auto-generated",
-                    "X-Auto-Response-Suppress": "All"
-                },
-                html: `
-                    <p>Thank you for reaching out!</p>
-                    <p>I have received your message and will get back to you soon.</p>
-                    <p><strong>Your message:</strong></p>
-                    <blockquote>${message}</blockquote>
-                    <br />
-                    <p>Best regards,<br/>Long Le</p>
-                `
-            });
-        }, 1000);
+        await transporter.sendMail({
+            from: `"No Reply" <${process.env.EMAIL_USERNAME}>`,
+            to: email,
+            subject: `Re: ${subject}`,
+            headers: {
+                "Reply-To": "",
+                "Auto-Submitted": "auto-generated",
+                "X-Auto-Response-Suppress": "All"
+            },
+            html: `
+                <p>Thank you for reaching out!</p>
+                <p>I have received your message and will get back to you soon.</p>
+                <p><strong>Your message:</strong></p>
+                <blockquote>${message}</blockquote>
+                <br />
+                <p>Best regards,<br/>Long Le</p>
+            `
+        });
+        
 
         return NextResponse.json({ message: 'Message sent successfully', data: result.rows[0] }, { status: 200 });
     } catch (error) {
