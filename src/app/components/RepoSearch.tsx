@@ -61,7 +61,7 @@ const RepoSearch: React.FC = () => {
             <h2 className="text-center text-4xl font-bold text-white mb-4 mt-4">Github Repository Search</h2>
             <div className="grid md:grid-cols-2 grid-cols-1 gap-7">
                 <div>
-                    <form onSubmit={handleSearch} action="" className="space-y-2 px-7 mb-2.5">
+                    <form onSubmit={handleSearch} action="" className="space-y-2 md:px-7 mb-2.5">
                         <label htmlFor="search" className="text-white text-sm font-medium block">
                             Username
                         </label>
@@ -140,7 +140,7 @@ const RepoSearch: React.FC = () => {
                             </div>
                         </div>
                     ) : (
-                        <p className="text-white md:mt-8 px-7">No repositories found</p>
+                        <p className="text-white md:mt-8 md:px-7">No repositories found</p>
                     )}
             </div>
         </section>
