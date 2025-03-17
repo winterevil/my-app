@@ -57,12 +57,12 @@ const RepoSearch: React.FC = () => {
     };
 
     return (
-        <section id="search">
-            <h2 className="text-center text-4xl font-bold text-white mb-4 mt-4">Github Repository Search</h2>
+        <section id="search" className='bg-[--background] min-h-screen'>
+            <h2 className="text-center text-4xl font-bold text-[--primary] mb-4 mt-4">Github Repository Search</h2>
             <div className="grid md:grid-cols-2 grid-cols-1 gap-7">
                 <div>
-                    <form onSubmit={handleSearch} action="" className="space-y-2 md:px-7 mb-2.5">
-                        <label htmlFor="search" className="text-white text-sm font-medium block">
+                    <form onSubmit={handleSearch} action="" className="space-y-2 mb-2.5">
+                        <label htmlFor="search" className="text-[--primary] text-sm font-medium block">
                             Username
                         </label>
                         <div className="flex items-center space-x-2">
@@ -72,16 +72,16 @@ const RepoSearch: React.FC = () => {
                                 value={username}
                                 onChange={handleInputChange}
                                 required
-                                className="bg-[#18191E] border border-[#33353F] placeholder-[#9CA2A9] text-gray-100 text-sm rounded-lg flex-1 p-2.5"
+                                className="bg-[--rbackground] border border-[--bcolor] placeholder-[--placeholder] text-gray-300 text-sm rounded-lg flex-1 p-2.5"
                                 placeholder="Enter username here"
                             />
-                            <button className="bg-primary-500 hover:bg-primary-600 text-white font-medium py-2.5 px-5 rounded-lg flex-shrink-0">
+                            <button className="bg-primary-500 hover:bg-primary-600 text-[--primary] font-medium py-2.5 px-5 rounded-lg flex-shrink-0">
                                 <Image src="/images/search.png" width={20} height={20} alt="search-icon"></Image>
                             </button>
                         </div>
                     </form>
                     {userInfo && (
-                        <div className='bg-[#18191E] border border-[#33353F] placeholder-[#9CA2A9] text-gray-100 text-sm rounded-lg grid grid-cols-3 w-full py-2.5 md:px-7'>
+                        <div className='bg-[--rbackground] border border-[--bcolor] placeholder-[--placeholder] text-gray-100 text-sm rounded-lg grid grid-cols-3 w-full py-2.5 md:px-7'>
                             <div className='col-span-1'>
                                 <a href={`https://github.com/${userInfo.login}`} target="_blank" rel="noopener noreferrer">
                                     <Image src={userInfo.avatar_url} width={150} height={150} className='rounded-full' alt="User Avatar" />
@@ -90,13 +90,13 @@ const RepoSearch: React.FC = () => {
                             <div className='col-span-2 px-1'>
                                 <div>
                                     <a href={`https://github.com/${userInfo.login}`} target="_blank" rel="noopener noreferrer">
-                                        <h1 className='text-2xl font-bold text-white'>{userInfo.name || userInfo.login}</h1>
+                                        <h1 className='text-2xl font-bold text-[--primary]'>{userInfo.name || userInfo.login}</h1>
                                     </a>
-                                    <p className='text-white'>@{userInfo.login}</p>
-                                    <p className='mt-3 text-white'>{userInfo.bio || 'No bio available'}</p>
+                                    <p className='text-[--primary]'>@{userInfo.login}</p>
+                                    <p className='mt-3 text-[--primary]'>{userInfo.bio || 'No bio available'}</p>
                                     <div>Joined: {new Date(userInfo.created_at).toLocaleDateString()}</div>
                                 </div>
-                                <div className='md:flex md:justify-between grid grid-cols-1 text-white w-full mt-3'>
+                                <div className='md:flex md:justify-between grid grid-cols-1 text-[--primary] w-full mt-3'>
                                     <div>
                                         <p>Repositories:</p>
                                         <p>{repos.length}</p>
@@ -115,17 +115,17 @@ const RepoSearch: React.FC = () => {
                     )}
                 </div>
                 {loading ? (
-                    <p className="text-white md:mt-8 px-7">Loading...</p>
+                    <p className="text-[--primary] md:mt-8 px-7">Loading...</p>
                 ) :
                     error ? (
                         <p className="text-red-500 md:mt-8 px-7">{error}</p>
                     ) : repos.length > 0 ? (
                         <div>
-                            <p className="text-base text-white px-7 mb-2.5 md:px-0">Repositories:</p>
-                            <div className="bg-[#18191E] border border-[#33353F] placeholder-[#9CA2A9] text-gray-100 text-sm rounded-lg block w-full py-2.5 px-7">
+                            <p className="text-base text-[--primary] px-7 mb-2.5 md:px-0">Repositories:</p>
+                            <div className="bg-[--rbackground] border border-[--bcolor] placeholder-[--placeholder] text-gray-100 text-sm rounded-lg block w-full py-2.5 px-7">
                                 <ul className="space-y-2">
                                     {repos.map((repo) => (
-                                        <li key={repo.id} className="text-white">
+                                        <li key={repo.id} className="text-[--primary]">
                                             <a
                                                 href={repo.html_url}
                                                 target="_blank"
@@ -140,7 +140,7 @@ const RepoSearch: React.FC = () => {
                             </div>
                         </div>
                     ) : (
-                        <p className="text-white md:mt-8 md:px-7">No repositories found</p>
+                        <p className="text-[--primary] md:mt-8 md:px-7">No repositories found</p>
                     )}
             </div>
         </section>

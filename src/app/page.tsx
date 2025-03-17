@@ -8,7 +8,7 @@ import AchievementsSection from "./components/AchievementsSection";
 import { ToastContainer } from "react-toastify";
 export default function Home() {
   return (
-    <main className="flex min-h-screen flex-col bg-[#121212]">
+    <main className="flex min-h-screen flex-col bg-[--background]">
       <Navbar />
       <div className="container mt-24 mx-auto px-12 py-4 flex-grow">
         <ToastContainer position="top-right" autoClose={1000} />

@@ -56,12 +56,12 @@ const EmailSection = () => {
 
     return (
         <section id="contact" className='grid md:grid-cols-2 my-12 md:my-12 py-24 gap-4 relative'>
-            <div className='bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-primary-900 to-transparent rounded-full h-80 w-80 z-0 blur-lg absolute top-3/4 -left-4 transform -translate-x-1/2 -translate-y-1/2'></div>
+            {/* <div className='bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-primary-800 to-transparent rounded-full h-80 w-80 z-0 blur-lg absolute top-3/4 -left-4 transform -translate-x-1/2 -translate-y-1/2'></div> */}
             <div className='z-9'>
-                <h5 className='text-xl font-bold text-white my-2'>
+                <h5 className='text-xl font-bold text-[--primary] my-2'>
                     Let&apos;s Connect
                 </h5>
-                <p className='text-[#ADB7BE] mb-4 max-w-md'>
+                <p className='text-[--secondary] mb-4 max-w-md'>
                     I am always open to discussing new projects,
                     open-source contributions, or opportunities to
                     be collaborated on open-source projects.
@@ -78,24 +78,24 @@ const EmailSection = () => {
             <div>
                 <form action="" className="flex flex-col" onSubmit={handleSubmit}>
                     <div className='mb-6'>
-                        <label htmlFor="email" className="text-white block mb-2 text-sm font-medium">Your email</label>
+                        <label htmlFor="email" className="text-[--primary] block mb-2 text-sm font-medium">Your email</label>
                         <input type="email" id="email" required value={formData.email} onChange={handleChange}
-                            className="bg-[#18191E] border border-[#33353F] placeholder-[#9CA2A9] text-gray-100 text-sm rounded-lg block w-full p-2.5"
+                            className="bg-[--rbackground] border border-[--bcolor] placeholder-[--placeholder] text-gray-100 text-sm rounded-lg block w-full p-2.5"
                             placeholder="jacob@google.com" />
                     </div>
                     <div className='mb-6'>
-                        <label htmlFor="subject" className="text-white block mb-2 text-sm font-medium">Subject</label>
+                        <label htmlFor="subject" className="text-[--primary] block mb-2 text-sm font-medium">Subject</label>
                         <input type="text" id="subject" required value={formData.subject} onChange={handleChange}
-                            className="bg-[#18191E] border border-[#33353F] placeholder-[#9CA2A9] text-gray-100 text-sm rounded-lg block w-full p-2.5"
+                            className="bg-[--rbackground] border border-[--bcolor] placeholder-[--placeholder] text-gray-100 text-sm rounded-lg block w-full p-2.5"
                             placeholder="Just saying hi" />
                     </div>
                     <div className="mb-6">
-                        <label htmlFor="message" className="text-white block mb-2 text-sm font-medium">Message</label>
+                        <label htmlFor="message" className="text-[--primary] block mb-2 text-sm font-medium">Message</label>
                         <textarea id="message" name="message" required value={formData.message} onChange={handleChange}
-                            className="bg-[#18191E] border border-[#33353F] placeholder-[#9CA2A9] text-gray-100 text-sm rounded-lg block w-full p-2.5"
+                            className="bg-[--rbackground] border border-[--bcolor] placeholder-[--placeholder] text-gray-100 text-sm rounded-lg block w-full p-2.5"
                             placeholder="Hi there, I would like to ..." />
                     </div>
-                    <button type="submit" className='bg-primary-500 hover:bg-primary-600 text-white font-medium py-2.5 px-5 rounded-lg w-full'>
+                    <button type="submit" className='bg-primary-500 hover:bg-primary-600 text-[--primary] font-medium py-2.5 px-5 rounded-lg w-full'>
                         Send Message
                     </button>
                     {status && <p>{status}</p>}

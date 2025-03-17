@@ -38,7 +38,7 @@ const TAB_DATA = [
       <div className='grid md:grid-cols-3 grid-cols-2 pl-2'>
         <p className='mb-4'>
           <Image className='mb-3' src="/images/about/eiu.png" width={50} height={50} alt="education"></Image>
-          <span>Eastern International University</span>
+          <span className='text-[--primary]'>Eastern International University</span>
         </p>
       </div>
     ),
@@ -50,11 +50,11 @@ const TAB_DATA = [
       <div className='grid md:grid-cols-3 grid-cols-2 pl-2'>
         <p className='mb-4'>
           <Image className='mb-3' src="/images/about/hackerrank.png" width={50} height={50} alt="certifications"></Image>
-          <span>SQL Basic</span>
+          <span className='text-[--primary]'>SQL Basic</span>
         </p>
         <p className='mb-4'>
           <Image className='mb-3' src="/images/about/hackerrank.png" width={50} height={50} alt="certifications"></Image>
-          <span>Java Basic</span>
+          <span className='text-[--primary]'>Java Basic</span>
         </p>
       </div>
     ),
@@ -74,8 +74,8 @@ const AboutSection = () => {
       <div className='md:grid md:grid-cols-2 gap-8 items-center py-8 px-4 xl:gap-16 sm:py-16 xl:px-16'>
         <Image src="/images/about/about-image.png" width={500} height={500} alt="about-image"></Image>
         <div className='mt-4 md:mt-0 text-left flex flex-col h-full'>
-          <h2 className='text-4xl font-bold text-white mb-4'>About Me</h2>
-          <p className='text-base lg:text-lg'>As an enthusiastic IT student with a deep passion for technology and problem-solving,
+          <h2 className='text-4xl font-bold text-[--primary] mb-4'>About Me</h2>
+          <p className='text-base lg:text-lg text-[--primary]'>As an enthusiastic IT student with a deep passion for technology and problem-solving,
             I am seeking an opportunity to
             learn and contribute in a dynamic
             team environment, developing
