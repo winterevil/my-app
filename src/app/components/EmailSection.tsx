@@ -68,10 +68,10 @@ const EmailSection = () => {
                 </p>
                 <div className="socials flex flex-row gap-2">
                     <Link href="https://github.com/winterevil">
-                        <Image src={GithubIcon} alt="Github Icon"></Image>
+                        <Image src={GithubIcon} alt="Github Icon" className='invert dark:invert-0'></Image>
                     </Link>
                     <Link href="https://www.linkedin.com/in/th%C3%A0nh-l%C3%AA-long-4a2016336/">
-                        <Image src={LinkedinIcon} alt="Linkedin Icon"></Image>
+                        <Image src={LinkedinIcon} alt="Linkedin Icon" className='invert dark:invert-0'></Image>
                     </Link>
                 </div>
             </div>
@@ -95,7 +95,7 @@ const EmailSection = () => {
                             className="bg-[--rbackground] border border-[--bcolor] placeholder-[--placeholder] text-gray-100 text-sm rounded-lg block w-full p-2.5"
                             placeholder="Hi there, I would like to ..." />
                     </div>
-                    <button type="submit" className='bg-primary-500 hover:bg-primary-600 text-[--primary] font-medium py-2.5 px-5 rounded-lg w-full'>
+                    <button type="submit" className='bg-primary-500 hover:bg-primary-600 text-white font-medium py-2.5 px-5 rounded-lg w-full'>
                         Send Message
                     </button>
                     {status && <p>{status}</p>}
