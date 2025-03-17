@@ -94,7 +94,7 @@ const RepoSearch: React.FC = () => {
                                     </a>
                                     <p className='text-[--primary]'>@{userInfo.login}</p>
                                     <p className='mt-3 text-[--primary]'>{userInfo.bio || 'No bio available'}</p>
-                                    <div>Joined: {new Date(userInfo.created_at).toLocaleDateString()}</div>
+                                    <div className='text-[--primary]'>Joined: {new Date(userInfo.created_at).toLocaleDateString()}</div>
                                 </div>
                                 <div className='md:flex md:justify-between grid grid-cols-1 text-[--primary] w-full mt-3'>
                                     <div>
