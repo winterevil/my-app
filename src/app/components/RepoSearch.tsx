@@ -72,7 +72,7 @@ const RepoSearch: React.FC = () => {
                                 value={username}
                                 onChange={handleInputChange}
                                 required
-                                className="bg-[--rbackground] border border-[--bcolor] placeholder-[--placeholder] text-gray-300 text-sm rounded-lg flex-1 p-2.5"
+                                className="bg-[--rbackground] border border-[--bcolor] placeholder-[--placeholder] text-gray-500 text-sm rounded-lg flex-1 p-2.5"
                                 placeholder="Enter username here"
                             />
                             <button className="bg-primary-500 hover:bg-primary-600 text-[--primary] font-medium py-2.5 px-5 rounded-lg flex-shrink-0">
