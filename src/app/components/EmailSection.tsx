@@ -12,7 +12,6 @@ const EmailSection = () => {
         subject: '',
         message: '',
     });
-    const [status, setStatus] = React.useState<string | null>(null);
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         setFormData({ ...formData, [e.target.id]: e.target.value });
@@ -20,9 +19,7 @@ const EmailSection = () => {
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         toast.info('Sending...');
-        setStatus(
-            'Sending...'
-        );
+
         try {
             const response = await fetch('/api/postgres', {
                 method: 'POST',
@@ -37,7 +34,6 @@ const EmailSection = () => {
             if (response.ok) {
                 setTimeout(() => {
                     toast.success('Message sent successfully');
-                    setStatus('Sent');
                     setFormData({
                         email: '',
                         subject: '',
@@ -46,11 +42,9 @@ const EmailSection = () => {
                 }, 1200);
             } else {
                 toast.error(`Error: ${data.error}`);
-                setStatus('Error');
             }
         } catch (error) {
             toast.error('Something went wrong' + error);
-            setStatus('Error');
         }
     };
 
